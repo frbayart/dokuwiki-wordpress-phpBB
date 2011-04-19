@@ -1334,6 +1334,7 @@ function validate_data($data, $val_ary)
 		foreach ($val_seq as $validate)
 		{
 			$function = array_shift($validate);
+			if($function == 'username'){$function = 'phpbb_username';}
 			array_unshift($validate, $data[$var]);
 
 			if ($result = call_user_func_array('validate_' . $function, $validate))
@@ -1469,7 +1470,7 @@ function validate_match($string, $optional = false, $match = '')
 *
 * @return	mixed	Either false if validation succeeded or a string which will be used as the error message (with the variable name appended)
 */
-function validate_username($username, $allowed_username = false)
+function validate_phpbb_username($username, $allowed_username = false)
 {
 	global $config, $db, $user, $cache;
 
@@ -3215,7 +3216,7 @@ function group_user_attributes($action, $group_id, $user_id_ary = false, $userna
 }
 
 /**
-* A small version of validate_username to check for a group name's existence. To be called directly.
+* A small version of validate_phpbb_username to check for a group name's existence. To be called directly.
 */
 function group_validate_groupname($group_id, $group_name)
 {
